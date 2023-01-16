@@ -70,12 +70,16 @@ const SearchForm = () => {
               rules={[{ required: true, message: 'Please select your Intermediate cities!' }]}
             >
               <Select
+                showSearch
                 mode="multiple"
                 allowClear
                 style={{ width: '100%' }}
                 placeholder="Please select"
                 getPopupContainer={trigger => trigger.parentNode}
-                // onChange={handleChange}
+                filterOption={(input, option) => {
+                  return (option?.children?.toString() ?? '').toLowerCase().includes(input.toLowerCase())
+                }}
+              // onChange={handleChange}
               >
                 {refactoredCities.map(city => <Option key={city.lat} value={city.lat} long={city.long}>{city.label}</Option>)}
               </Select>
